@@ -2,10 +2,13 @@
 
 <suite thread-count="1" verbose="1" name="Gmail Suite" annotations="JDK" parallel="tests">
          
-  <test name="Sanity">
+  <test name="Assignment">
 	 <classes>
-	   <class name="com.assignment.tests.LoginTest.java"/>
+	   <class name="com.assignment.tests.LoginTest"/>
+	    <class name="com.assignment.tests.LoggedInDefaultPageTest"/>
 	 </classes>
    </test>
    
 </suite>
+
+

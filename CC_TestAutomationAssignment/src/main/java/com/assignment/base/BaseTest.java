@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
+import org.testng.Reporter;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 
+import com.assignment.pages.BasePage;
 import com.assignment.util.BrowserEnum;
-import com.assignment.util.Constants;
 import com.assignment.util.DriverManagerFactory;
 import com.assignment.util.TestUtility;
 import com.relevantcodes.extentreports.ExtentReports;
@@ -27,7 +27,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 public class BaseTest {
 
 	public static final String PropertyFilePath = System.getProperty("user.dir")
-			+ "/src/main/resources/com/assignment/config/config.Properties";
+			+ "\\src\\main\\resources\\com\\assignment\\config\\config.Properties";
 
 	public static Properties properties;
 
@@ -37,8 +37,16 @@ public class BaseTest {
 
 	public static WebDriver driver;
 
-	// Constructor to read configuration data from property file.
-	public BaseTest() {
+	public static String userName;
+
+	public static String encodedPassword;
+
+	public static String url;
+
+	public static String browser;
+
+	// Method to load and set configuration data from property file.
+	public static void loadPropertyFile() {
 		try {
 			properties = new Properties();
 			File file = new File(PropertyFilePath);
@@ -49,37 +57,47 @@ public class BaseTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		userName = properties.getProperty("username");
+		encodedPassword = properties.getProperty("password");
+		url = properties.getProperty("url");
+		browser = properties.getProperty("browser");
+
 	}
 
 	@BeforeTest()
-	public void setUp() {
-		BrowserEnum browser = BrowserEnum.valueOf(Constants.browser);
-		driver = DriverManagerFactory.setUpDriver(browser);
-		driver.get(Constants.url);
+	public static void setUp() {
+		loadPropertyFile();
+		// Telling System Where Exactly Extent Report has to be Generated under Project.
+		extentReport = new ExtentReports(System.getProperty("user.dir")
+				+ "\\AssignmentResults\\AssignmentExtentReports\\" + TestUtility.getSystemDate() + ".html");
+
+		extentReport.addSystemInfo("Host Name", "Alok's Windows System");
+		extentReport.addSystemInfo("User Name", "Alok Shrivastava");
+		extentReport.addSystemInfo("Environment", "Automation Testing");
+
+		extentTest = extentReport.startTest("Gmail Suite");
+
+		BrowserEnum browserEnumVal = BrowserEnum.valueOf(browser.toUpperCase());
+		driver = DriverManagerFactory.getInstanceOfWebDriver(browserEnumVal);
+		driver.get(url);
 		driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
+		driver.manage().addCookie(new Cookie("cc", "Gmail"));
+		BasePage.setWebDriver(driver);
 	}
 
-	@BeforeClass()
-	public void startReport() {
-		// Telling System Where Exactly Extent Report has to be Generated under Project.
-		extentReport = new ExtentReports(System.getProperty("user.dir") + "/AssignmentResults/AssignmentExtentReports"
-				+ TestUtility.getSystemDate() + ".html");
-		extentReport.addSystemInfo("Host Name", "Alok's Windows System");
-		extentReport.addSystemInfo("User Name", "Alok Shrivastava");
-		extentReport.addSystemInfo("Environment", "Automation Testing");
-	}
-
-	@AfterClass()
-	public void endReport() {
+	@AfterTest()
+	public static void tearDown() {
+		if (driver != null) {
+			driver.quit();
+			Reporter.log("Browser Terminated");
+		}
+		extentReport.endTest(extentTest);
 		extentReport.flush();
 		extentReport.close();
 	}
 
-	@AfterTest()
-	public void tearDown() {
-		driver.quit();
-	}
 }

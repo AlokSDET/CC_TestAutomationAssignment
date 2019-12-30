@@ -7,7 +7,22 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverManagerFactory {
 
+	/**
+	 * The WebDriverClass class is used to generate a single instance of driver to
+	 * launch the browser using singleton design pattern.
+	 */
 	private static WebDriver driver;
+
+	private DriverManagerFactory() {
+
+	}
+
+	public static synchronized WebDriver getInstanceOfWebDriver(BrowserEnum browserName) {
+		if (driver == null) {
+			setUpDriver(browserName);
+		}
+		return driver;
+	}
 
 	/**
 	 * This method is to initialize the driver based on the browser name.
@@ -17,11 +32,10 @@ public class DriverManagerFactory {
 	 */
 	public static WebDriver setUpDriver(BrowserEnum browserName) {
 
-		driver = WebDriverManager.getInstance();
-
 		switch (browserName) {
 		case CHROME:
-			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/Driver/chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",
+					System.getProperty("user.dir") + "\\Drivers\\chromedriver.exe");
 
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("start-maximized");
@@ -30,7 +44,7 @@ public class DriverManagerFactory {
 			return driver;
 
 		case FIREFOX:
-			System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/Driver/geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\Drivers\\geckodriver.exe");
 
 			driver = new FirefoxDriver();
 			return driver;

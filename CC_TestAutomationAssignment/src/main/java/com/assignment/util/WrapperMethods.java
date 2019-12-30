@@ -1,20 +1,21 @@
 package com.assignment.util;
 
-import static com.assignment.util.TestUtility.waitUntilElementBecomeClicable;
-
 import org.openqa.selenium.WebElement;
+
+import com.assignment.pages.BasePage;
 
 public class WrapperMethods {
 
 	public static void enterText(WebElement element, String textToEnter) {
-		waitUntilElementBecomeClicable(element);
+		BasePage.waitUntilElementBecomeClicable(element);
 		element.clear();
 		element.click();
 		element.sendKeys(textToEnter);
+		BasePage.waitForPageLoaded();
 	}
-	
+
 	public static void clickOnElement(WebElement element) {
-		waitUntilElementBecomeClicable(element);
 		element.click();
+		BasePage.waitForPageLoaded();
 	}
 }

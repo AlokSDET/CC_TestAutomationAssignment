@@ -1,10 +1,9 @@
 package com.assignment.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.assignment.util.Constants;
+import com.assignment.base.BaseTest;
 import com.assignment.util.TestUtility;
 import com.assignment.util.WrapperMethods;
 
@@ -13,15 +12,14 @@ public class LoginPage extends BasePage {
 	@FindBy(xpath = "//input[@id='identifierId']")
 	private WebElement userName;
 
-	
 	@FindBy(xpath = "//input[@name='password']")
 	private WebElement password;
 
 	@FindBy(xpath = "//span[contains(text(),'Next')]")
 	private WebElement nextBtn;
 
-	public LoginPage(WebDriver driver) {
-		super(driver);
+	public LoginPage() {
+		super();
 	}
 
 	public void enterUserName(String userName) {
@@ -36,13 +34,14 @@ public class LoginPage extends BasePage {
 		WrapperMethods.clickOnElement(this.nextBtn);
 	}
 
-	public LoggedInDefaultPage logInGmail(WebDriver driver) {
-		String userName = Constants.userName;
-		String encodedPassword = Constants.encodedPassword;
-		enterUserName(userName);
+	public LoggedInDefaultPage logInGmailWithCorrectCred(String url) {
+		waitForPageLoaded();
+		driver.navigate().to(url);
+		enterUserName(BaseTest.userName);
 		clickOnNextBtn();
-		enterPassword(TestUtility.getDecodedString(encodedPassword));
+		enterPassword(TestUtility.getDecodedString(BaseTest.encodedPassword));
 		clickOnNextBtn();
-		return new LoggedInDefaultPage(driver);
+		waitForPageLoaded();
+		return new LoggedInDefaultPage();
 	}
 }

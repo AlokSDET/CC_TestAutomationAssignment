@@ -8,6 +8,14 @@
 
 apply plugin: "java"
 apply plugin: "eclipse"
+apply plugin: 'maven'
+
+
+ 
+group = 'com.assignment.cc'
+// artifactId is taken by default, from folder name
+version = '0.1-SNAPSHOT'
+
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -25,10 +33,9 @@ repositories {
 
 test { //this is the gradle task to be executed
   useTestNG() { //Tells Gradle to use TestNG
-       useDefaultListeners = true // Tells TestNG to execute its default reporting structure
-       suites 'src/test/resources/com/assignment/testng/testng.xml' //location of our suite.xml
   }
 }
+
 
 dependencies {
 
@@ -47,6 +54,8 @@ dependencies {
 	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.0'
 
  	
+	compile 'commons-lang:commons-lang:2.3'
+
  	//Reporting
  	// https://mvnrepository.com/artifact/com.relevantcodes/extentreports
 	compile group: 'com.relevantcodes', name: 'extentreports', version: '2.40.2'
