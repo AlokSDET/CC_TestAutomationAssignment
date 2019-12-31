@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [RestAPIAutomationTest]">
+  <test thread-count="5" name="StackExchangeAPI(failed)">
+    <classes>
+      <class name="com.rest.tests.BadgeIdApiTests">
+        <methods>
+          <include name="getBadgesBySameId"/>
+          <include name="getBadgesById"/>
+        </methods>
+      </class> <!-- com.rest.tests.BadgeIdApiTests -->
+      <class name="com.rest.tests.BadgeApiTests">
+        <methods>
+          <include name="VerifyBadgesDisplaysInDescOrderByName"/>
+          <include name="VerifyBadgesDisplaysInDescOrderByRank"/>
+          <include name="VerifyBadgesDisplaysInAscOrderByName"/>
+          <include name="VerifyBadgesForInvalidPageSizeParameter"/>
+          <include name="getListOfAllBadges"/>
+          <include name="VerifyBadgesDisplaysInAscOrderByRank"/>
+          <include name="VerifyBadgesDisplaysInAscOrderByType"/>
+          <include name="VerifyBadgesDisplaysInDescOrderByType"/>
+          <include name="VerifyBadgesForValidPageSizeParameter"/>
+        </methods>
+      </class> <!-- com.rest.tests.BadgeApiTests -->
+      <class name="com.rest.tests.BadgeTagsApiTests">
+        <methods>
+          <include name="getListOfAllSilverBadges"/>
+          <include name="getListOfAllBronzeBadges"/>
+          <include name="getListOfAllBadges"/>
+          <include name="getListOfAllGoldBadges"/>
+        </methods>
+      </class> <!-- com.rest.tests.BadgeTagsApiTests -->
+      <class name="com.rest.tests.BadgesRecipientsApiTests">
+        <methods>
+          <include name="VerifyBadgesRecipientsForGivenInvalidDateRange"/>
+          <include name="VerifyBadgesRecipientsForGivenDateRange"/>
+          <include name="VerifyBadgesRecipients"/>
+        </methods>
+      </class> <!-- com.rest.tests.BadgesRecipientsApiTests -->
+    </classes>
+  </test> <!-- StackExchangeAPI(failed) -->
+</suite> <!-- Failed suite [RestAPIAutomationTest] -->
