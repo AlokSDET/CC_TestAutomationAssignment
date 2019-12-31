@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="RestAPIAutomationTest" verbose="1">
+	<test name="StackExchangeAPI">
+		<classes>
+			<class name="com.rest.tests.BadgeApiTests" />
+			<class name="com.rest.tests.BadgeIdApiTests" />
+			<class name="com.rest.tests.BadgesRecipientsApiTests" />
+				<class name="com.rest.tests.BadgeTagsApiTests" />
+		</classes>
+	</test>
+
+</suite>
