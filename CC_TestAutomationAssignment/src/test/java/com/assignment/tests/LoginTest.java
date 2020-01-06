@@ -6,7 +6,6 @@ import java.lang.reflect.Method;
 
 import org.testng.Reporter;
 import org.testng.annotations.AfterGroups;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
@@ -15,7 +14,7 @@ import org.testng.annotations.Test;
 import com.assignment.base.BaseTest;
 import com.assignment.pages.LoggedInDefaultPage;
 import com.assignment.pages.LoginPage;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.Status;
 
 public class LoginTest extends BaseTest {
 
@@ -41,12 +40,7 @@ public class LoginTest extends BaseTest {
 
 	@BeforeMethod()
 	public void startTest(Method method) {
-		extentReport.startTest(method.getName(), "Test Method Started at " + extentTest.getStartedTime());
-	}
-
-	@AfterMethod()
-	public void endTest(Method method) {
-		extentReport.endTest(extentTest);
+		extentTest = extent.createTest(method.getName(), "Test Method Started at " + extentHtmlReporter.getStartTime());
 	}
 
 	@Test(description = "Verify that user is logged-in in Gmail Application successfully", priority = 0, groups = {
@@ -57,7 +51,8 @@ public class LoginTest extends BaseTest {
 		assertTrue(actualAccountEmail.contains(BaseTest.userName.trim()),
 				"Gmail Login is not successfull." + "Expected user name is " + BaseTest.userName + " and actual is "
 						+ loggedInDefaultPage.getGoogleAccountAriaLabel());
-		extentTest.log(LogStatus.PASS, "Gmail login is successfull for " + BaseTest.userName);
+		extentTest.log(Status.PASS, "Gmail login is successfull for " + BaseTest.userName);
+		extentTest.pass("Login Successful;");
 		Reporter.log("Login is successfull");
 	}
 
@@ -65,8 +60,8 @@ public class LoginTest extends BaseTest {
 			"Successfull login" })
 	public void VerifyPrimaryTabIsSelectedByDefault() {
 		assertTrue(loggedInDefaultPage.isTabSelected("Primary"), "Primary Section is not selected by default");
-		extentTest.log(LogStatus.PASS, "Primary Tab is selected by default");
+		extentTest.log(Status.PASS, "Primary Tab is selected by default");
+		extentTest.pass("Primary Tab is selected by default;");
 		Reporter.log("Primary Tab is selected by default");
 	}
-
 }
