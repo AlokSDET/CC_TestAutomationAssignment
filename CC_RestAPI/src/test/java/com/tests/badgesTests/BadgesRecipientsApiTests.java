@@ -1,4 +1,4 @@
-package com.rest.tests;
+package com.tests.badgesTests;
 
 import static com.rest.utilities.TestUtilities.TruncateLongString;
 import static com.rest.utilities.TestUtilities.getTimeInLong;
@@ -12,8 +12,8 @@ import java.util.logging.Logger;
 
 import org.testng.annotations.Test;
 
-import com.test.basetest.BadgeApiBaseTests;
-import com.test.services.BadgesServices;
+import com.common.basetest.BadgeApiBaseTests;
+import com.common.services.BadgesServices;
 
 import io.restassured.response.Response;
 

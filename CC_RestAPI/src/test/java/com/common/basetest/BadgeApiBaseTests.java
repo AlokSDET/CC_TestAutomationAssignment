@@ -1,4 +1,4 @@
-package com.test.basetest;
+package com.common.basetest;
 
 import static com.rest.common.Constants.HTTP_OK;
 import static org.testng.Assert.assertEquals;
@@ -16,10 +16,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.google.common.collect.Ordering;
-import com.test.services.BadgesServices;
+import com.common.services.BadgesServices;
 
 import io.restassured.response.Response;
 
+/**
+ * @author Alok
+ *This class holds all base methods which will be used across the test classes.
+ *
+ */
 public class BadgeApiBaseTests {
 
 	public static Logger log = Logger.getLogger(BadgeApiBaseTests.class.getName());

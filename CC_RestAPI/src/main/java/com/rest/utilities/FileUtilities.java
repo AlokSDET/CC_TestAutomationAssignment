@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * @author Alok Shrivastava
+ *
+ */
 public class FileUtilities {
 
 	public static final String PropertyFilePath = System.getProperty("user.dir")
@@ -31,6 +35,11 @@ public class FileUtilities {
 		return propertyValue;
 	}
 
+	/** This method is to load the property file from the directory.
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public static Properties loadPropertyFile() throws IOException {
 		try {
 			properties = new Properties();

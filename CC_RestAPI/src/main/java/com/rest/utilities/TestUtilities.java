@@ -63,6 +63,11 @@ public class TestUtilities {
 		return getPropertyValue("BASE_URL");
 	}
 
+	/** This method will convert time in long from string format 
+	 * @param dateInStr
+	 * @return
+	 * @throws Exception
+	 */
 	public static long getTimeInLong(String dateInStr) throws Exception {
 
 		Date date = new SimpleDateFormat("yyyy-mm-dd").parse(dateInStr);

@@ -1,4 +1,4 @@
-package com.test.services;
+package com.common.services;
 
 import static com.rest.common.Constants.BASE_URL;
 import static com.rest.common.Constants.REQUESTSPECIFICATION;

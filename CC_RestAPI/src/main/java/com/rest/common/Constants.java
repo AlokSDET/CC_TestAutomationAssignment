@@ -5,6 +5,10 @@ import com.rest.utilities.TestUtilities;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 
+/**
+ * @author Alok Shrivastava
+ * This class holds all constants which can be used across the framework.
+ */
 public class Constants {
 
 	public static final String EMPTY_STRING = "";
