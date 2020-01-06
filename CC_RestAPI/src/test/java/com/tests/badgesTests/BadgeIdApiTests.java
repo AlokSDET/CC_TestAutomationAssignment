@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.common.basetest.BadgeApiBaseTests;
@@ -22,6 +23,11 @@ public class BadgeIdApiTests extends BadgeApiBaseTests {
 
 	public static Logger log = Logger.getLogger(BadgeIdApiTests.class.getName());
 
+	@DataProvider(name = "rest assured test data")
+	public Object[][] testData() {
+		return new Object[][] { { "1" }, { "1;2" }, { "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15" } };
+	}
+
 	@Test(description = "Verify that badges are displaying only for given Id")
 	public void getBadgesById() throws Exception {
 		Map<String, Object> queryParam = new HashMap<String, Object>();
@@ -29,6 +35,12 @@ public class BadgeIdApiTests extends BadgeApiBaseTests {
 		List<String> idsList = new LinkedList<String>(Arrays.asList("1", "1;2", "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15"));
 
 		idsList.forEach(ids -> testBadgesById(ids, queryParam));
+	}
+
+	@Test(description = "Verify that badges are displaying only for given Id", dataProvider = "rest assured test data")
+	public void getBadgesByIdUsingDataProvider(String id) throws Exception {
+		Map<String, Object> queryParam = new HashMap<String, Object>();
+		testBadgesById(id, queryParam);
 	}
 
 	@Test(description = "Verify that badges are displaying only for given Id once even though same ids "

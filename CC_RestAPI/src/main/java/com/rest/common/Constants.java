@@ -3,7 +3,10 @@ package com.rest.common;
 import com.rest.utilities.TestUtilities;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 
 /**
  * @author Alok Shrivastava
@@ -32,11 +35,12 @@ public class Constants {
 	
 	public static final String BASE_URL = TestUtilities.getBaseUrl();
 	
-	// Request Specification constants can be created here as per Header Type.
+	// Request Specification constants can be created here as per Header Type.it can be flexible and reusable.
 	public static final RequestSpecification REQUESTSPECIFICATION = new RequestSpecBuilder()
-			.addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").build();
+			.addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").setBaseUri(BASE_URL).build();
 
 	public static final RequestSpecification REQUESTSPECIFICATIONFORXML = new RequestSpecBuilder()
-			.addHeader("Accept", "text/xml").addHeader("Content-Type", "text/xml").build();
+			.addHeader("Accept", "text/xml").addHeader("Content-Type", "text/xml").setBaseUri(BASE_URL).build();
 	
+	public static final ResponseSpecification RESPONSESPECIFICATION = new ResponseSpecBuilder().expectStatusCode(HTTP_OK).expectContentType(ContentType.JSON).build();
 }

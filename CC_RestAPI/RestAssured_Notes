@@ -1,0 +1,42 @@
+Rest Assured is Java DSL (domain specific language)library for writing test for restful API.
+jsonpath, gpath,xmlpath used to extract the body from json response.
+
+
+then.asserthThat.ContentType(ContentType.json)
+
+or 
+
+then.asserthThat.ContentType("application/json")
+
+hamcrest matchers :
+
+body("$places[0].'place name'", equalTo("gwalior"));
+
+xpath path for html
+
+xmlpath for xml
+
+jsonpath for json (path expression langauge for json)
+
+Rest Assured uses GPath notation.
+
+hasItem
+hasSize
+
+jsonpath cant be used to extract or querying the xml response.instead use xmlpath.
+
+wiremock : create the similar behaviour or API.
+
+
+//FROM RESPONSE : LAST mode ( places[-1])
+
+//how to get attribute value from response using xmlpath 
+$ response.places.place[1].@attributename
+
+
+POJO: Plain old java object
+deserilization : json response to pojo 
+
+
+serilization : java object to json request body 
+

@@ -3,10 +3,10 @@
 <suite name="RestAPIAutomationTest" verbose="1">
 	<test name="StackExchangeAPI">
 		<classes>
-			<class name="com.rest.tests.BadgeApiTests" />
-			<class name="com.rest.tests.BadgeIdApiTests" />
-			<class name="com.rest.tests.BadgesRecipientsApiTests" />
-				<class name="com.rest.tests.BadgeTagsApiTests" />
+			<class name="com.tests.badgesTests.BadgeApiTests" />
+			<class name="com.tests.badgesTests.BadgeIdApiTests" />
+			<class name="com.tests.badgesTests.BadgesRecipientsApiTests" />
+				<class name="com.tests.badgesTests.BadgeTagsApiTests" />
 		</classes>
 	</test>
 

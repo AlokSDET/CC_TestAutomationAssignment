@@ -63,6 +63,7 @@ public class BadgesRecipientsApiTests extends BadgeApiBaseTests {
 		queryParam.put("todate", TruncateLongString(Long.valueOf(getTimeInLong(toDate)).toString(), 10));
 
 		Response allBadgesRecipientsResponse = BadgesServices.getAllBadgesReciepients(queryParam);
+
 		List<Object> userIdList = allBadgesRecipientsResponse.getBody().jsonPath().getList("items.user.user_id");
 		userIdList.forEach(userId -> System.out.println(userId));
 		userIdList.forEach(

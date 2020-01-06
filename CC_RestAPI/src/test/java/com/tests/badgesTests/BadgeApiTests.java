@@ -20,6 +20,7 @@ import io.restassured.response.Response;
 public class BadgeApiTests extends BadgeApiBaseTests {
 
 	public static Logger log = Logger.getLogger(BadgeApiTests.class.getName());
+	
 
 	@Test(description = "Verify that badges list is not empty", priority = 1)
 	public void getListOfAllBadges() throws Exception {
