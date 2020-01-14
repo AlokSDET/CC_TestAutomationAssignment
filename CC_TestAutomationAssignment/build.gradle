@@ -57,7 +57,8 @@ dependencies {
 	compile 'commons-lang:commons-lang:2.3'
 
  	//Reporting
- 	// https://mvnrepository.com/artifact/com.relevantcodes/extentreports
-	compile group: 'com.relevantcodes', name: 'extentreports', version: '2.40.2'
+	// https://mvnrepository.com/artifact/com.aventstack/extentreports
+	compile group: 'com.aventstack', name: 'extentreports', version: '3.0.0'
+
 
 }

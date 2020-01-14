@@ -20,8 +20,9 @@ import com.assignment.pages.BasePage;
 import com.assignment.util.BrowserEnum;
 import com.assignment.util.DriverManagerFactory;
 import com.assignment.util.TestUtility;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 //Using Base Class we are achieving Inheritance Concept from Java.
 public class BaseTest {
@@ -31,7 +32,9 @@ public class BaseTest {
 
 	public static Properties properties;
 
-	public static ExtentReports extentReport;
+	public static ExtentHtmlReporter extentHtmlReporter;
+
+	public static ExtentReports extent;
 
 	public static ExtentTest extentTest;
 
@@ -69,14 +72,14 @@ public class BaseTest {
 	public static void setUp() {
 		loadPropertyFile();
 		// Telling System Where Exactly Extent Report has to be Generated under Project.
-		extentReport = new ExtentReports(System.getProperty("user.dir")
+		extentHtmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir")
 				+ "\\AssignmentResults\\AssignmentExtentReports\\" + TestUtility.getSystemDate() + ".html");
+		extent = new ExtentReports();
+		extent.attachReporter(extentHtmlReporter);
 
-		extentReport.addSystemInfo("Host Name", "Alok's Windows System");
-		extentReport.addSystemInfo("User Name", "Alok Shrivastava");
-		extentReport.addSystemInfo("Environment", "Automation Testing");
-
-		extentTest = extentReport.startTest("Gmail Suite");
+		extent.setSystemInfo("Host Name", "Alok's Windows System");
+		extent.setSystemInfo("User Name", "Alok Shrivastava");
+		extent.setSystemInfo("Environment", "Automation Testing");
 
 		BrowserEnum browserEnumVal = BrowserEnum.valueOf(browser.toUpperCase());
 		driver = DriverManagerFactory.getInstanceOfWebDriver(browserEnumVal);
@@ -95,9 +98,8 @@ public class BaseTest {
 			driver.quit();
 			Reporter.log("Browser Terminated");
 		}
-		extentReport.endTest(extentTest);
-		extentReport.flush();
-		extentReport.close();
+		extent.flush();
+		extent.close();
 	}
 
 }

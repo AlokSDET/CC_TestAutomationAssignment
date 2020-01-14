@@ -1,3 +1,8 @@
+
+
+This is gradle project. Please switch to the 'FrontEndAutomationTesting' branch.
+
+
 Note: before running please put the encoded password in password field in property file:
 
 Generate encoded password by using below URL .

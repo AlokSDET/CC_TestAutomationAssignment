@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,7 +11,7 @@ import org.testng.annotations.Test;
 import com.assignment.base.BaseTest;
 import com.assignment.pages.LoggedInDefaultPage;
 import com.assignment.pages.LoginPage;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.Status;
 
 public class LoggedInDefaultPageTest extends BaseTest {
 
@@ -24,6 +23,7 @@ public class LoggedInDefaultPageTest extends BaseTest {
 		loginPage = new LoginPage();
 		loginPage.logInGmailWithCorrectCred(url);
 		loggedInDefaultPage = new LoggedInDefaultPage();
+
 	}
 
 	@AfterClass
@@ -33,12 +33,7 @@ public class LoggedInDefaultPageTest extends BaseTest {
 
 	@BeforeMethod()
 	public void startTest(Method method) {
-		extentReport.startTest(method.getName(), "Test Started at " + extentTest.getStartedTime());
-	}
-
-	@AfterMethod()
-	public void endTest(Method method) {
-		extentReport.endTest(extentTest);
+		extentTest = extent.createTest(method.getName(), "Test Started at " + extentHtmlReporter.getStartTime());
 	}
 
 	@Test(description = "This test gives the total number of emails in social Tab")
@@ -52,7 +47,7 @@ public class LoggedInDefaultPageTest extends BaseTest {
 
 		String totalEmailCountInSocialTab = loggedInDefaultPage.getTotalNoOfEmail();
 
-		extentTest.log(LogStatus.INFO, "Total no of email in social tab are :" + totalEmailCountInSocialTab);
+		extentTest.log(Status.INFO, "Total no of email in social tab are :" + totalEmailCountInSocialTab);
 		Reporter.log(totalEmailCountInSocialTab);
 	}
 
@@ -64,10 +59,10 @@ public class LoggedInDefaultPageTest extends BaseTest {
 		String subject = loggedInDefaultPage.getSenderOfNthEmailInSocialTab(12);
 		String sender = loggedInDefaultPage.getSubjectOfNthEmailInSocialTab(12);
 
-		extentTest.log(LogStatus.INFO, "Subject of 12th email in Social Tab is : " + subject);
+		extentTest.log(Status.INFO, "Subject of 12th email in Social Tab is : " + subject);
 		Reporter.log(subject);
 
-		extentTest.log(LogStatus.INFO, "Sender of 12th email in Social Tab is : " + sender);
+		extentTest.log(Status.INFO, "Sender of 12th email in Social Tab is : " + sender);
 		Reporter.log(sender);
 	}
 }
