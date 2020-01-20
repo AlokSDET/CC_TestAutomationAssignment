@@ -1,9 +1,12 @@
 package com.assignment.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.assignment.base.BaseTest;
 import com.assignment.util.WrapperMethods;
 
 public class LoggedInDefaultPage extends BasePage {
@@ -25,6 +28,15 @@ public class LoggedInDefaultPage extends BasePage {
 
 	@FindBy(xpath = "//a[contains(text(),'Sign out')]")
 	private WebElement signOut;
+
+	@FindBy(xpath = "//div[contains(text(),'Use another account')]")
+	private WebElement chooseAnotherAccount;
+	
+	@FindBy(xpath = "//div[contains(text(),'Remove an account')]")
+	private WebElement removeAnAccount;
+	
+	@FindBy(xpath = "(//span[contains(text(),'Yes, remove')])[2]")
+	private WebElement yesRemoveElement;
 
 	public LoggedInDefaultPage() {
 		super();
@@ -94,8 +106,25 @@ public class LoggedInDefaultPage extends BasePage {
 		WrapperMethods.clickOnElement(this.googleAccount);
 	}
 
+	public boolean existenseOfChooseAnAccount() {
+		List<WebElement> chooseAccount = driver.findElements(By.xpath("//span[contains(text(), 'Choose an account')]"));
+		if (chooseAccount.size() > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public void selectGmailAccount() {
+		driver.findElement(By.xpath("//div[contains(text(),'"+ BaseTest.userName + "')]")).click();
+	}
+	
+	
 	public void signOutGmail() {
 		clickOnGoogleAccount();
 		WrapperMethods.clickOnElement(this.signOut);
+		WrapperMethods.clickOnElement(this.removeAnAccount);
+		selectGmailAccount();
+		WrapperMethods.clickOnElement(this.yesRemoveElement);
+		//waitForPageLoaded();
 	}
 }

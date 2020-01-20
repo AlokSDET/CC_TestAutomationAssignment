@@ -35,13 +35,12 @@ public class LoginPage extends BasePage {
 	}
 
 	public LoggedInDefaultPage logInGmailWithCorrectCred(String url) {
-		waitForPageLoaded();
-		driver.navigate().to(url);
+		driver.get(url);
+		//waitForPageLoaded();
 		enterUserName(BaseTest.userName);
 		clickOnNextBtn();
 		enterPassword(TestUtility.getDecodedString(BaseTest.encodedPassword));
 		clickOnNextBtn();
-		waitForPageLoaded();
 		return new LoggedInDefaultPage();
 	}
 }

@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Reporter;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -48,10 +51,13 @@ public class BaseTest {
 
 	public static String browser;
 
+	public static Logger logger;
+
 	// Method to load and set configuration data from property file.
 	public static void loadPropertyFile() {
 		try {
 			properties = new Properties();
+
 			File file = new File(PropertyFilePath);
 			FileInputStream fis = new FileInputStream(file);
 			properties.load(fis);
@@ -70,6 +76,14 @@ public class BaseTest {
 
 	@BeforeTest()
 	public static void setUp() {
+
+		logger = LoggerFactory.getLogger(BaseTest.class);
+
+		PropertyConfigurator.configure(System.getProperty("user.dir")
+				+ "\\src\\main\\resources\\com\\assignment\\config\\" + "log4j.properties");
+
+		logger.info("Before Test started ...");
+		
 		loadPropertyFile();
 		// Telling System Where Exactly Extent Report has to be Generated under Project.
 		extentHtmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir")
@@ -90,16 +104,22 @@ public class BaseTest {
 		driver.manage().deleteAllCookies();
 		driver.manage().addCookie(new Cookie("cc", "Gmail"));
 		BasePage.setWebDriver(driver);
+		
+		logger.info("Before Test ended ...");
 	}
 
 	@AfterTest()
 	public static void tearDown() {
+		logger.info("After Test Started ...");
+		
 		if (driver != null) {
 			driver.quit();
 			Reporter.log("Browser Terminated");
 		}
 		extent.flush();
 		extent.close();
+		
+		logger.info("After Test Ended ...");
 	}
 
 }

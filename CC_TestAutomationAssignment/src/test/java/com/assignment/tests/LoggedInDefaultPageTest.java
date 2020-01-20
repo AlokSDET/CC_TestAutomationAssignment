@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -21,19 +22,29 @@ public class LoggedInDefaultPageTest extends BaseTest {
 	@BeforeClass()
 	public void setUpBeforeLoggedInClass() {
 		loginPage = new LoginPage();
-		loginPage.logInGmailWithCorrectCred(url);
-		loggedInDefaultPage = new LoggedInDefaultPage();
+		loggedInDefaultPage = loginPage.logInGmailWithCorrectCred(url);
+		logger.info(LoggedInDefaultPageTest.class.getSimpleName() + " class started...");
 
+	}
+
+
+	@BeforeMethod()
+	public void startTest(Method method) {
+		extentTest = extent.createTest(method.getName(), " Test Started at " + extentHtmlReporter.getStartTime());
+		logger.info("method " + method.getName() + " started...");
 	}
 
 	@AfterClass
 	public void tearDownAfterLoggedInClass() {
 		loggedInDefaultPage.signOutGmail();
+		logger.info("logged out from gmail....and " + LoggedInDefaultPageTest.class.getSimpleName() + " class ended.");
 	}
 
-	@BeforeMethod()
-	public void startTest(Method method) {
-		extentTest = extent.createTest(method.getName(), "Test Started at " + extentHtmlReporter.getStartTime());
+	
+	@AfterMethod()
+	public void endTest(Method method) {
+		extentTest = extent.createTest(method.getName(), " Test ended at " + extentHtmlReporter.getStartTime());
+		logger.info("method " + method.getName() + " ended...");
 	}
 
 	@Test(description = "This test gives the total number of emails in social Tab")
@@ -49,6 +60,7 @@ public class LoggedInDefaultPageTest extends BaseTest {
 
 		extentTest.log(Status.INFO, "Total no of email in social tab are :" + totalEmailCountInSocialTab);
 		Reporter.log(totalEmailCountInSocialTab);
+		logger.info("total email counted in social tab");
 	}
 
 	@Test(description = " This test gives the sender and subject of 12th Email of inbox. (Under the social tab)")
@@ -64,5 +76,6 @@ public class LoggedInDefaultPageTest extends BaseTest {
 
 		extentTest.log(Status.INFO, "Sender of 12th email in Social Tab is : " + sender);
 		Reporter.log(sender);
+		logger.info("subject and sender of nth email found ...");
 	}
 }

@@ -1,14 +1,10 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">	
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite thread-count="1" verbose="1" name="Gmail Suite" annotations="JDK" parallel="tests">
-         
-  <test name="Assignment">
-	 <classes>
-	   <class name="com.assignment.tests.LoginTest"/>
-	    <class name="com.assignment.tests.LoggedInDefaultPageTest"/>
-	 </classes>
-   </test>
-   
+<suite name="Gmail Suite" verbose="1" >
+  <test name="Regression suite 1" >
+    <classes>
+      <class name="com.assignment.tests.LoginTest"/>
+      <class name="com.assignment.tests.LoggedInDefaultPageTest"/>
+    </classes>
+ </test>
 </suite>
-
-

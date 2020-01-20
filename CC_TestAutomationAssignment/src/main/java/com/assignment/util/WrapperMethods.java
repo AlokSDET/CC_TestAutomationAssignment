@@ -11,11 +11,12 @@ public class WrapperMethods {
 		element.clear();
 		element.click();
 		element.sendKeys(textToEnter);
-		BasePage.waitForPageLoaded();
+		//BasePage.waitForPageLoaded();
 	}
 
 	public static void clickOnElement(WebElement element) {
+		BasePage.waitUntilElementBecomeClicable(element);
 		element.click();
-		BasePage.waitForPageLoaded();
+		//BasePage.waitForPageLoaded();
 	}
 }
